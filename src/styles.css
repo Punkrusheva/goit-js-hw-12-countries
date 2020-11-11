@@ -18,23 +18,52 @@ img {
 }
 
 .card {
-  width: 288px;
+  display: flex;
+  max-width: 632px;
+  margin: 10px;
 }
 
 .card-text {
-  margin-top: 0;
+  margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.card-img-top {
-  display: flex;
-  justify-content: center;
+.card-body {
+  display: inline-block;
+  padding: 10px;
+  width: 50%;
+}
+
+.card-img {
+  display: inline-block;
+  max-width: 313px;
+  height: 100%;
+  outline: 1px solid gray;
 }
 
 .search-form {
   padding: 10px;
 }
 
-.card {
-  margin: 10px;
+h1 {
+  margin: 0;
+  font-size: 60px;
+  text-align: center;
+  max-width: 632px;
+}
+
+.list-group-item {
+  margin-left: 10px;
+}
+
+.btn {
+  margin-top: 3px;
+}
+.form-group {
+  width: 180px;
+  height: 21px;
+}
+
+.form-inline {
+  display: flex;
 }
