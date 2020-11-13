@@ -16,7 +16,6 @@ refs.inputEl.addEventListener('input', debounce(onInputSearch), 500);
 function onInputSearch(e) {
     e.preventDefault();
     const searchQuery = refs.inputEl.value;
-    console.log(refs.inputEl.value); 
     API.fetchCountries(searchQuery)
         .then(refs.listEl.innerHTML = '')
         .then(refs.cardContainer.innerHTML = '')
@@ -29,7 +28,7 @@ function renderCountryCard(countries) {
     if (countries.length === 1) {
         refs.cardContainer.innerHTML = countryCardTpl(countries[0]);
     } if (countries.length >= 2 && countries.length <= 10) {
-        console.log('вот список до 10 стран');
+        //console.log('вот список до 10 стран');
 
         const newListItem = countries.map((country) => {
             const newCountry = document.createElement("li");
@@ -40,28 +39,21 @@ function renderCountryCard(countries) {
             return newListItem;
             });
     } if (countries.length > 10) {
-        (console.log('to mach'));
+        //(console.log('to mach'));
         click();
     }
 };
 
 function onFetchError(error) {
         alert('Ошибка, результат не найден');
-        console.log(error);
 };
-
 
 function click() {
   error({
     text:
-      "Too many matches found. Pleas enter a more specific query!",
-    modules: new Map([
-        [{
-            delay: 100
-        }]
-    ])
+          "Too many matches found. Pleas enter a more specific query!",
+    delay: 1000
   });
 }
 
-const App = document.getElementById("app");
 
