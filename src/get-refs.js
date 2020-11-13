@@ -1,7 +1,7 @@
 export default function getRefs() {
     return {
+        inputEl: document.querySelector('.input-control'),
         cardContainer: document.querySelector('.js-card-container'),
-        searchForm: document.querySelector('.js-search-form'),
-        listEl: document.querySelector('#countries'),
+        listEl: document.querySelector('.js-countries')
     };
 };

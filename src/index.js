@@ -1,44 +1,67 @@
 import './styles.css';
 import countryCardTpl from './templates/country-card.hbs';
-//import searchList from './templates/country-search-result-list.hbs'
 import API from './fetchCountries';
 import getRefs from './get-refs';
 
+import { error } from "@pnotify/core";
+import "@pnotify/core/dist/PNotify.css";
+import "@pnotify/core/dist/BrightTheme.css";
+import "@pnotify/confirm/dist/PNotifyConfirm.css";
+
+const debounce = require('lodash.debounce');
 const refs = getRefs();
 
-refs.searchForm.addEventListener('submit', onSearch);
-//refs.searchForm.addEventListener('input', _.debounce(onSearch), 500);
+refs.inputEl.addEventListener('input', debounce(onInputSearch), 500);
 
-function onSearch(e) {
+function onInputSearch(e) {
     e.preventDefault();
-
-    
-    const form = e.currentTarget;
-    const searchQuery = form.elements.query.value;
-    
+    const searchQuery = refs.inputEl.value;
+    console.log(refs.inputEl.value); 
     API.fetchCountries(searchQuery)
         .then(refs.listEl.innerHTML = '')
         .then(refs.cardContainer.innerHTML = '')
         .then(renderCountryCard)
         .catch(onFetchError)
-        .finally(() => { form.reset() })
-};
+        .finally(() => { refs.inputEl.value === '' })
+}
 
 function renderCountryCard(countries) {
-   if (countries.length === 1) {
+    if (countries.length === 1) {
         refs.cardContainer.innerHTML = countryCardTpl(countries[0]);
-        } else if (countries.length >= 2 && countries.length <= 10) {
-            console.log('вот список до 10 стран');
-            const newListItem = countries.map((country) => {
-                const newCountry = document.createElement("li");
-                newCountry.textContent = country.name;
-                refs.listEl.appendChild(newCountry);
-                return newListItem;
+    } if (countries.length >= 2 && countries.length <= 10) {
+        console.log('вот список до 10 стран');
+
+        const newListItem = countries.map((country) => {
+            const newCountry = document.createElement("li");
+            
+            newCountry.textContent = country.name;
+            refs.listEl.appendChild(newCountry);
+            
+            return newListItem;
             });
-        } else if (countries.length > 10) { (console.log('to mach')) }
+    } if (countries.length > 10) {
+        (console.log('to mach'));
+        click();
+    }
 };
 
 function onFetchError(error) {
         alert('Ошибка, результат не найден');
         console.log(error);
 };
+
+
+function click() {
+  error({
+    text:
+      "Too many matches found. Pleas enter a more specific query!",
+    modules: new Map([
+        [{
+            delay: 100
+        }]
+    ])
+  });
+}
+
+const App = document.getElementById("app");
+
