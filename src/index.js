@@ -11,7 +11,7 @@ import "@pnotify/confirm/dist/PNotifyConfirm.css";
 const debounce = require('lodash.debounce');
 const refs = getRefs();
 
-refs.inputEl.addEventListener('input', debounce(onInputSearch), 500);
+refs.inputEl.addEventListener('input', debounce(onInputSearch, 500));
 
 function onInputSearch(e) {
     e.preventDefault();
