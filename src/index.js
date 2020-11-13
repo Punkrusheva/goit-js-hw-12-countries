@@ -45,15 +45,23 @@ function renderCountryCard(countries) {
 };
 
 function onFetchError(error) {
-        alert('Ошибка, результат не найден');
+   // alert('Ошибка, результат не найден');
+    clickError();
 };
 
 function click() {
   error({
     text:
           "Too many matches found. Pleas enter a more specific query!",
-    delay: 1000
+    delay: 700
   });
 }
 
+function clickError() {
+  error({
+    text:
+          "Error, no result found!!",
+    delay: 700
+  });
+}
 
